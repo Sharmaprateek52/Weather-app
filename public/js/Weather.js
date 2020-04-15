@@ -11,5 +11,9 @@ class weather{
 			current : {}
 		};
 	}
+	asyn init(){
+		this.initializeForm();
+		await this.update();
+	}
 	
 } 
