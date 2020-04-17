@@ -1,18 +1,18 @@
-class weather{
+class Weather{
 	constructor(options){
 		//api.openweathermap.org/data/2.5/weather?q={city name},{state}
 		this.config = {
-			API_KEY : options.apikey || "8c9b143e9a9687fa41b484de07203098",
-			CURRENT_WEATHER_URL : "https://api.openweathermap.org/data/2.5/weather",
-			LOCATION_NAME: options.locationName || 'Broklyn,nyc',
+			API_KEY : options.apiKey || "8c9b143e9a9687fa41b484de07203098",
+			CURRENT_WEATHER_URL : "http://api.openweathermap.org/data/2.5/weather",
+			LOCATION_NAME: options.locationName || 'Brooklyn,nyc',
 			UNITS: 'metric'
 		}
 		this.data = {
-			current : {}
+			current : {},
 		};
 	}
 
-	asyn init(){
+	async init(){
 		this.initializeForm();
 		await this.update();
 	}
@@ -30,9 +30,9 @@ class weather{
 	async getCurrentWeather(){
 		try{
 			const {CURRENT_WEATHER_URL,LOCATION_NAME,UNITS,API_KEY} = this.config;
-			const requestURL = `${CURRENT_WEATHER_URL}?q={LOCATION_NAME}&units={UNITS}&APIID=${API_KEY}`
+			const requestURL = `${CURRENT_WEATHER_URL}?q=${LOCATION_NAME}&units=${UNITS}&APPID=${API_KEY}`
 			const data = await fetch(requestURL);
-			thus.data.current = await data.json();
+			this.data.current = await data.json();
 		}catch(err){
 			alert(err);
 		}
@@ -45,7 +45,7 @@ class weather{
 		}
 
 		const currentTemp = Math.round(currentData.main.temp);
-		const currentFeelsLikeTemp =  Math.round.(currentData.main.feels_temp);
+		const currentFeelsLikeTemp =  Math.round(currentData.main.feels_like);
 		const location = currentData.name;
 		const desc = currentData.weather[0].description;
 
@@ -58,9 +58,9 @@ class weather{
 		</section>
 		`
 
-		const $currentEL = this.currentElementFromText(el);
+		const $currentEl = this.createElementFromText(el);
 		const $current = document.querySelector(".current");
-		$current.replaceWith($currentEL);
+		$current.replaceWith($currentEl);
 	}
 
 	async update(){
@@ -68,11 +68,11 @@ class weather{
 		this.renderCurrentWeather(this.data.current);
 	}
 
-	currentElementFromText(textEL){
-		let $currentEL = document.createElement('div');
-		$currentEL.innerHTML = textEL;
-		$currentEL = $currentEL.firstElementChild;
+	createElementFromText(textEl){
+		let $currentEl = document.createElement('div');
+		$currentEl.innerHTML = textEl;
+		$currentEl = $currentEl.firstElementChild;
 
-		return $currentEL;
+		return $currentEl;
 	}
 } 
