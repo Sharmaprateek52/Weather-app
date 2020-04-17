@@ -1,3 +1,3 @@
 # Weather-app
 
-![](weather_app/public/assets/Screenshot.png)
+![](https://github.com/Sharmaprateek52/Weather-app/blob/master/public/assets/Screenshot.png)
